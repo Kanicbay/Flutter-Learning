@@ -6,15 +6,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       // Remove debug tag
       debugShowCheckedModeBanner: false,
-      home: CounterScreen()
+      theme: ThemeData(colorSchemeSeed: Colors.blue),
+      home: const CounterScreen(),
     );
   }
 }
