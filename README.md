@@ -35,6 +35,14 @@ La organización propuesta:
 - Extensiones de Flutter y Dart  
 - Emulador Android o dispositivo físico
 
+## Ayudas
+https://quicktype.io/
+
+Con configuración:
+- lenguaje: Dart
+- Null safety: on
+- Make all properties final: on
+
 ---
 
 ## ▶️ Ejecución 
