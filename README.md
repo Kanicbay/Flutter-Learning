@@ -52,3 +52,16 @@ Con configuración:
 
 ``flutter run``
 
+---
+
+## Proyectos
+### Aplicación sencilla de mensajes con respuesta Si / No
+
+<div align="center" style="border:none">
+      <td><img src="https://github.com/user-attachments/assets/1ab21a64-57ee-4e89-9809-d8a7c441782d" width="220"/> </td>
+      <td><img src="https://github.com/user-attachments/assets/f66c22d3-eaea-4e20-abf3-424d4f4a492b" width="220"/></td>
+      <td><img src="https://github.com/user-attachments/assets/c0439f30-b23e-4a3c-8885-2aaee7dd9e38" width="220"/></td>
+</div> 
+
+
+
