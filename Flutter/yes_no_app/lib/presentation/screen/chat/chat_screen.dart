@@ -15,6 +15,13 @@ class ChatScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Mi amor (私の愛 ♥)'),
         titleSpacing: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            height: 1,
+            color: Colors.white.withValues(alpha: 0.06),
+          ),
+        ),
         leading: const Padding(
           padding: EdgeInsets.only(
             bottom: 8.0,
@@ -28,6 +35,9 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
+        ],
       ),
       body: _ChatView(),
     );
@@ -49,6 +59,7 @@ class _ChatView extends StatelessWidget {
                 controller: chatProvider.chatScrollController,
                 itemCount: chatProvider.messageList.length,
                 itemBuilder: (context, index) {
+                  if (index == 0) return const SizedBox(height: 12);
                   final message = chatProvider.messageList[index];
                   return (message.fromWho == FromWho.hers)
                       ? HerMessageBubble(message: message)

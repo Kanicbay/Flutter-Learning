@@ -50,18 +50,21 @@ class _MessageFieldBoxState extends State<MessageFieldBox> {
       ),
     );
 
-    return TextFormField(
-      onTapOutside: (event) {
-        focusNode.unfocus();
-      },
-      focusNode: focusNode,
-      controller: textController,
-      decoration: inputDecoration,
-      onFieldSubmitted: (value) {
-        textController.clear();
-        focusNode.requestFocus();
-        widget.onValue(value);
-      },
+    return Padding(
+      padding: const EdgeInsets.only(top: 3),
+      child: TextFormField(
+        onTapOutside: (event) {
+          focusNode.unfocus();
+        },
+        focusNode: focusNode,
+        controller: textController,
+        decoration: inputDecoration,
+        onFieldSubmitted: (value) {
+          textController.clear();
+          focusNode.requestFocus();
+          widget.onValue(value);
+        },
+      ),
     );
   }
 }
