@@ -9,11 +9,12 @@ class HerMessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final size = MediaQuery.of(context).size;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _TextBubble(colors: colors, message: message),
+        _TextBubble(colors: colors, message: message, size: size),
         const SizedBox(height: 5),
         _ImageBubble(message.imageUrl!),
         const SizedBox(height: 10),
@@ -23,10 +24,15 @@ class HerMessageBubble extends StatelessWidget {
 }
 
 class _TextBubble extends StatelessWidget {
-  const _TextBubble({required this.colors, required this.message});
+  const _TextBubble({
+    required this.colors,
+    required this.message,
+    required this.size,
+  });
 
   final ColorScheme colors;
   final Message message;
+  final Size size;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +42,32 @@ class _TextBubble extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Text(message.text, style: const TextStyle(color: Colors.white)),
+        padding: const EdgeInsets.only(bottom: 5, top: 5, left: 10, right: 10),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: size.width * 0.8),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Flexible(
+                child: Text(
+                  message.text,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(width: 4),
+              Column(
+                children: [
+                  const SizedBox(height: 12),
+                  Text(
+                    message.formattedDate,
+                    style: const TextStyle(color: Colors.white70, fontSize: 10),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
