@@ -13,7 +13,7 @@ class ChatScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mi amor (私の愛 ♥)'),
+        title: const Text('Best Friend 💙'),
         titleSpacing: 0,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
