@@ -14,8 +14,14 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mi amor (私の愛 ♥)'),
+        titleSpacing: 0,
         leading: const Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.only(
+            bottom: 8.0,
+            left: 12.0,
+            right: 8.0,
+            top: 8.0,
+          ),
           child: CircleAvatar(
             backgroundImage: NetworkImage(
               'https://pbs.twimg.com/media/Gqq9OOMbgAAft6C.jpg',
