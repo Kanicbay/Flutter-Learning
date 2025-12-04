@@ -33,7 +33,7 @@ class _TextBubble extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: colors.secondary,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),

@@ -23,5 +23,6 @@ class YesNoModel {
     text: answer == 'yes' ? 'Si' : 'No',
     fromWho: FromWho.hers,
     imageUrl: image,
+    date: DateTime.now(),
   );
 }
