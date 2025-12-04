@@ -35,9 +35,6 @@ class ChatScreen extends StatelessWidget {
             ),
           ),
         ),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings)),
-        ],
       ),
       body: _ChatView(),
     );
