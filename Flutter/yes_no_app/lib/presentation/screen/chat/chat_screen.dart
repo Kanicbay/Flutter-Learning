@@ -35,7 +35,7 @@ class _ChatView extends StatelessWidget {
 
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.only(bottom: 8, left: 12, right: 12),
         child: Column(
           children: [
             Expanded(
