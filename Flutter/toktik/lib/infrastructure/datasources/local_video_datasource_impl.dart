@@ -3,7 +3,7 @@ import 'package:toktik/domain/entities/video_post.dart';
 import 'package:toktik/infrastructure/models/local_video_model.dart';
 import 'package:toktik/shared/data/local_video_posts.dart';
 
-class LocalVideoDatasource implements VideoPostsDatasource {
+class LocalVideoDatasourceImpl implements VideoPostsDatasource {
   @override
   Future<List<VideoPost>> getFavoriteVideosByUser(String userID) {
     throw UnimplementedError();
