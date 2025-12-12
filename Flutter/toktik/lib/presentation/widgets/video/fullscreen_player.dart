@@ -60,7 +60,7 @@ class _FullscreenPlayerState extends State<FullscreenPlayer> {
                 VideoPlayer(controller),
 
                 // Gradiente
-                VideoBackground(),
+                VideoBackground(stops: [0.8, 1.0]),
 
                 //Texto
                 Positioned(
