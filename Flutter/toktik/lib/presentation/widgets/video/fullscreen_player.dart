@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toktik/presentation/widgets/video/video_background.dart';
 import 'package:video_player/video_player.dart';
 
 class FullscreenPlayer extends StatefulWidget {
@@ -22,7 +23,7 @@ class _FullscreenPlayerState extends State<FullscreenPlayer> {
   void initState() {
     super.initState();
 
-    controller = VideoPlayerController.asset(widget.videoUrl)
+    controller = VideoPlayerController.networkUrl(Uri.parse(widget.videoUrl))
       ..setVolume(0)
       ..setLooping(true)
       ..play();
@@ -57,9 +58,10 @@ class _FullscreenPlayerState extends State<FullscreenPlayer> {
             child: Stack(
               children: [
                 VideoPlayer(controller),
-          
+
                 // Gradiente
-          
+                VideoBackground(),
+
                 //Texto
                 Positioned(
                   bottom: 50,
