@@ -16,7 +16,9 @@ class ThemeChangerScreen extends ConsumerWidget {
         title: const Text('Theme changer'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              ref.read(isDarkModeProvider.notifier).toggleDark();
+            },
             icon: isDarkMode
                 ? Icon(Icons.dark_mode_outlined)
                 : Icon(Icons.light_mode_outlined),
@@ -34,15 +36,16 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
+    final int selectedColor = ref.watch(selectedColorProvider);
 
     return ListView.builder(
       itemCount: colors.length,
       itemBuilder: (context, index) {
         final color = colors[index];
         return RadioGroup(
-          groupValue: 5,
+          groupValue: selectedColor,
           onChanged: (value) {
-            // TODO: notificar el cambio
+            ref.read(selectedColorProvider.notifier).update(index);
           },
           child: Column(
             children: [

@@ -9,7 +9,22 @@ class DarkTheme extends Notifier<bool> {
   }
 }
 
-final isDarkModeProvider = NotifierProvider<DarkTheme, bool>(DarkTheme.new);
+class SelectedColor extends Notifier<int> {
+  @override
+  int build() => 0;
+
+  void update(int index){
+    state = index;
+  }
+}
 
 // Listado de colores inmutable
 final colorListProvider = Provider((ref) => colorList);
+
+// Un simple boolean
+final isDarkModeProvider = NotifierProvider<DarkTheme, bool>(DarkTheme.new);
+
+// Un simple int
+final selectedColorProvider = NotifierProvider<SelectedColor, int>(
+  SelectedColor.new,
+);
