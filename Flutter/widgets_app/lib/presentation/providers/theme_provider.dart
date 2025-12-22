@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:widgets_app/config/theme/app_theme.dart';
 
 class DarkTheme extends Notifier<bool> {
   @override
@@ -9,3 +10,6 @@ class DarkTheme extends Notifier<bool> {
 }
 
 final isDarkModeProvider = NotifierProvider<DarkTheme, bool>(DarkTheme.new);
+
+// Listado de colores inmutable
+final colorListProvider = Provider((ref) => colorList);
