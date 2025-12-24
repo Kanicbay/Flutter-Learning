@@ -34,14 +34,11 @@ class ThemeNotifier extends Notifier<AppTheme> {
   @override
   AppTheme build() => AppTheme();
 
-  void toggleDarkMode(){
-
+  void toggleDarkMode() {
+    state = state.copyWith(isDarkMode: !state.isDarkMode);
   }
 
-  void changeColorIndex(int colorIndex){
-
-  }
-
+  void changeColorIndex(int colorIndex) {}
 }
 
 final themeNotifierProvider = NotifierProvider<ThemeNotifier, AppTheme>(
