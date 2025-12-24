@@ -36,7 +36,7 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final List<Color> colors = ref.watch(colorListProvider);
-    final int selectedColor = ref.watch(selectedColorProvider);
+    final int selectedColor = ref.watch(themeNotifierProvider).selectedColor;
 
     return ListView.builder(
       itemCount: colors.length,
@@ -45,7 +45,7 @@ class _ThemeChangerView extends ConsumerWidget {
         return RadioGroup(
           groupValue: selectedColor,
           onChanged: (value) {
-            ref.read(selectedColorProvider.notifier).update(index);
+            ref.read(themeNotifierProvider.notifier).changeColorIndex(index);
           },
           child: Column(
             children: [
