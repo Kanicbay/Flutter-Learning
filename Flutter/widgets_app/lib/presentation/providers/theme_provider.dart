@@ -13,7 +13,7 @@ class SelectedColor extends Notifier<int> {
   @override
   int build() => 0;
 
-  void update(int index){
+  void update(int index) {
     state = index;
   }
 }
@@ -27,4 +27,23 @@ final isDarkModeProvider = NotifierProvider<DarkTheme, bool>(DarkTheme.new);
 // Un simple int
 final selectedColorProvider = NotifierProvider<SelectedColor, int>(
   SelectedColor.new,
+);
+
+// Notifier para Theme
+class ThemeNotifier extends Notifier<AppTheme> {
+  @override
+  AppTheme build() => AppTheme();
+
+  void toggleDarkMode(){
+
+  }
+
+  void changeColorIndex(int colorIndex){
+
+  }
+
+}
+
+final themeNotifierProvider = NotifierProvider<ThemeNotifier, AppTheme>(
+  () => ThemeNotifier(),
 );
