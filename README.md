@@ -1,6 +1,6 @@
-# 📘 Flutter - Móvil: De cero a experto de Fernando Herrera
+# 📘 Flutter - Móvil
 
-Repositorio con todas las prácticas, ejemplos y proyectos desarrollados durante el curso, también se incluye modificaciones propias a los ejercicios para conseguir un acabado más personalizado.
+Repositorio con todas las prácticas, ejemplos y proyectos desarrollados para el aprendizaje de flutter.
 
 ---
 
@@ -14,6 +14,7 @@ Este repositorio tiene como objetivo documentar el proceso de aprendizaje, inclu
 - Consumo de APIs
 - Navegación
 - Widgets personalizados
+- Riverpod 3.0 como gestor de estado
 
 ---
 
