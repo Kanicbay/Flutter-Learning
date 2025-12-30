@@ -36,18 +36,47 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
 
-    return Column(
-      children: [
-        const CustomAppbar(),
+    return CustomScrollView(
+      slivers: [
+        const SliverAppBar(
+          floating: true,
+          titleSpacing: 0,
+          title: CustomAppbar(),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate((context, index) {
+            return Column(
+              children: [
+                MoviesSlideshow(movies: slideShowMovies),
 
-        MoviesSlideshow(movies: slideShowMovies),
-
-        MoviesHorizontalListview(
-          movies: nowPlayingMovies,
-          title: 'En cines',
-          subTitle: 'Lunes 20',
-          loadNextPage: () =>
-              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                MoviesHorizontalListview(
+                  movies: nowPlayingMovies,
+                  title: 'Proximamente',
+                  subTitle: 'En este mes',
+                  loadNextPage: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+                MoviesHorizontalListview(
+                  movies: nowPlayingMovies,
+                  title: 'Populares',
+                  // subTitle: 'Lunes 20',
+                  loadNextPage: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+                MoviesHorizontalListview(
+                  movies: nowPlayingMovies,
+                  title: 'Mejor calificadas',
+                  subTitle: 'Desde siempre',
+                  loadNextPage: () => ref
+                      .read(nowPlayingMoviesProvider.notifier)
+                      .loadNextPage(),
+                ),
+                const SizedBox(height: 10),
+              ],
+            );
+          }, childCount: 1),
         ),
       ],
     );
