@@ -12,7 +12,9 @@ class MovieMapper {
     originalLanguage: moviedb.originalLanguage,
     originalTitle: moviedb.originalTitle,
     overview: moviedb.overview,
-    popularity: moviedb.popularity,
+    popularity: (moviedb.popularity < 1000 && moviedb.popularity > 0)
+        ? (moviedb.popularity * 1000).toInt().toDouble()
+        : moviedb.popularity.toInt().toDouble(),
     posterPath: (moviedb.posterPath != '')
         ? 'https://image.tmdb.org/t/p/w500${moviedb.posterPath}'
         : 'no-poster',
