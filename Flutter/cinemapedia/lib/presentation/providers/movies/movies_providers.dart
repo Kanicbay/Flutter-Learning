@@ -14,11 +14,9 @@ extension _FetchByType on MoviesRepository {
       case MovieType.popular:
         return getPopular(page: page);
       case MovieType.uncoming:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return getUpcoming(page: page);
       case MovieType.topRated:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return getTopRated(page: page);
     }
   }
 }
@@ -29,6 +27,14 @@ final nowPlayingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
 
 final popularMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
   () => MoviesNotifier(type: MovieType.popular),
+);
+
+final topRatedMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
+  () => MoviesNotifier(type: MovieType.topRated),
+);
+
+final upcomingMoviesProvider = NotifierProvider<MoviesNotifier, List<Movie>>(
+  () => MoviesNotifier(type: MovieType.uncoming),
 );
 
 class MoviesNotifier extends Notifier<List<Movie>> {
