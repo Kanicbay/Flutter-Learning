@@ -50,7 +50,6 @@ class MoviesNotifier extends Notifier<List<Movie>> {
   Future<void> loadNextPage() async {
     if (isLoading) return;
     isLoading = true;
-    print('loading more movies');
     currentPage++;
     final List<Movie> movies = await ref
         .read(movieRepositoryProvider)

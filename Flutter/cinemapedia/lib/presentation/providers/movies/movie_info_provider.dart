@@ -3,7 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:cinemapedia/domain/entities/movie.dart';
 
-final movieInfoProvider = NotifierProvider(MovieMapNotifier.new);
+final movieInfoProvider =
+    NotifierProvider<MovieMapNotifier, Map<String, Movie>>(
+      MovieMapNotifier.new,
+    );
 
 class MovieMapNotifier extends Notifier<Map<String, Movie>> {
   @override
@@ -13,7 +16,7 @@ class MovieMapNotifier extends Notifier<Map<String, Movie>> {
 
   Future<void> loadMovie(String movieId) async {
     if (state[movieId] != null) return;
-
+    print("realizando peticion http");
     final movie = await ref
         .watch(movieRepositoryProvider)
         .getMovieById(movieId);
