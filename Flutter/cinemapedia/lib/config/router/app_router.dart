@@ -1,6 +1,7 @@
 import 'package:cinemapedia/presentation/screens/screen.dart';
 import 'package:cinemapedia/presentation/views/home_views/favorites_view.dart';
 import 'package:cinemapedia/presentation/views/home_views/home_view.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 final appRouter = GoRouter(
@@ -20,9 +21,25 @@ final appRouter = GoRouter(
                 GoRoute(
                   path: 'movie/:id',
                   name: MovieScreen.name,
-                  builder: (context, state) {
+                  pageBuilder: (context, state) {
                     final movieId = state.pathParameters['id'] ?? 'no-id';
-                    return MovieScreen(movieId: movieId);
+
+                    return CustomTransitionPage(
+                      key: state.pageKey,
+                      child: MovieScreen(movieId: movieId),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                            return SlideTransition(
+                              position: animation.drive(
+                                Tween(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).chain(CurveTween(curve: Curves.easeInOut)),
+                              ),
+                              child: child,
+                            );
+                          },
+                    );
                   },
                 ),
               ],
