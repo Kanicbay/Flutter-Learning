@@ -30,7 +30,7 @@ class _MovieScreenState extends ConsumerState<MovieScreen> {
 
     if (movie == null) {
       return const Scaffold(
-        body: Center(child: CircularProgressIndicator(strokeWidth: 2)),
+        body: Center(child: CircularProgressIndicator(strokeWidth: 4)),
       );
     }
 
