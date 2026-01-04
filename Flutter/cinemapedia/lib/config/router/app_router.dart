@@ -14,39 +14,9 @@ final appRouter = GoRouter(
       branches: [
         StatefulShellBranch(
           routes: [
-            GoRoute(
-              path: '/',
-              builder: (context, state) => const HomeView(),
-              routes: [
-                GoRoute(
-                  path: 'movie/:id',
-                  name: MovieScreen.name,
-                  pageBuilder: (context, state) {
-                    final movieId = state.pathParameters['id'] ?? 'no-id';
-
-                    return CustomTransitionPage(
-                      key: state.pageKey,
-                      child: MovieScreen(movieId: movieId),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: animation.drive(
-                                Tween(
-                                  begin: const Offset(1, 0),
-                                  end: Offset.zero,
-                                ).chain(CurveTween(curve: Curves.easeInOut)),
-                              ),
-                              child: child,
-                            );
-                          },
-                    );
-                  },
-                ),
-              ],
-            ),
+            GoRoute(path: '/', builder: (context, state) => const HomeView()),
           ],
         ),
-
         StatefulShellBranch(
           routes: [
             GoRoute(
@@ -58,22 +28,28 @@ final appRouter = GoRouter(
       ],
     ),
 
-    // Rutas padre-hijo
-    // GoRoute(
-    //   path: '/',
-    //   name: HomeScreen.name,
-    //   builder: (context, state) => const HomeScreen(childView: FavoritesView()),
-    //   routes: [
-    //     GoRoute(
-    //       path: 'movie/:id',
-    //       name: MovieScreen.name,
-    //       builder: (context, state) {
-    //         final movieId = state.pathParameters['id'] ?? 'no-id';
+    GoRoute(
+      path: '/movie/:id',
+      name: MovieScreen.name,
+      pageBuilder: (context, state) {
+        final movieId = state.pathParameters['id'] ?? 'no-id';
 
-    //         return MovieScreen(movieId: movieId);
-    //       },
-    //     ),
-    //   ],
-    // ),
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: MovieScreen(movieId: movieId),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: animation.drive(
+                Tween(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).chain(CurveTween(curve: Curves.easeInOut)),
+              ),
+              child: child,
+            );
+          },
+        );
+      },
+    ),
   ],
 );
