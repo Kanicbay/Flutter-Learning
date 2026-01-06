@@ -5,7 +5,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class MovieMasonry extends StatefulWidget {
   final List<Movie> movies;
-  final Future<List<Movie>> Function()? loadNextPage;
+  final VoidCallback? loadNextPage;
 
   const MovieMasonry({super.key, required this.movies, this.loadNextPage});
 
@@ -14,18 +14,18 @@ class MovieMasonry extends StatefulWidget {
 }
 
 class _MovieMasonryState extends State<MovieMasonry> {
-  bool isLastPage = false;
-  bool isLoading = false;
   final scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
+    if ( widget.loadNextPage == null ) return;
+
     scrollController.addListener(() {
-      if (scrollController.position.pixels + 200 >=
+      if (scrollController.position.pixels + 100 >=
           scrollController.position.maxScrollExtent) {
-        loadNextPageMovies();
+        widget.loadNextPage!();
       }
     });
   }
@@ -34,19 +34,6 @@ class _MovieMasonryState extends State<MovieMasonry> {
   void dispose() {
     scrollController.dispose();
     super.dispose();
-  }
-
-  void loadNextPageMovies() async {
-    if (isLoading || isLastPage) return;
-    if (widget.loadNextPage == null) return;
-
-    isLoading = true;
-    final movies = await widget.loadNextPage!();
-    isLoading = false;
-
-    if (movies.isEmpty) {
-      isLastPage = true;
-    }
   }
 
   @override
