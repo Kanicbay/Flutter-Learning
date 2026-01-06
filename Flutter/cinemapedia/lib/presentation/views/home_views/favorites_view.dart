@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cinemapedia/presentation/providers/storage/favorite_movies_provider.dart';
 import 'package:cinemapedia/presentation/widgets/movies/movies_masonry.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,22 @@ class _FavoritesViewState extends ConsumerState<FavoritesView> {
   Widget build(BuildContext context) {
     final favoriteMovies = ref.watch(favoriteMoviesProvider);
     final movies = favoriteMovies.values.toList();
+
+    final colors = Theme.of(context).colorScheme;
+
+    if (movies.isEmpty) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.favorite_border, size: 80, color: colors.primary),
+              Text('No tienes peliculas añadidas'),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       body: MovieMasonry(
