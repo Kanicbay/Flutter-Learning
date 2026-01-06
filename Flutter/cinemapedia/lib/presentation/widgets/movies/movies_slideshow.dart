@@ -42,8 +42,8 @@ class _Slide extends StatelessWidget {
   Widget build(BuildContext context) {
     final decoration = BoxDecoration(
       borderRadius: BorderRadius.circular(20),
-      boxShadow: [
-        const BoxShadow(
+      boxShadow: const [
+        BoxShadow(
           color: Colors.black45,
           blurRadius: 10,
           offset: Offset(0, 10),

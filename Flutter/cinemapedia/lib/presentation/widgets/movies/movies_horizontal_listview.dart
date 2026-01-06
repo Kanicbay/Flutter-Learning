@@ -121,10 +121,11 @@ class _Slide extends StatelessWidget {
                 fit: BoxFit.cover,
                 width: 150,
                 loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null)
+                  if (loadingProgress != null) {
                     return const Center(
                       child: CircularProgressIndicator(strokeWidth: 2),
                     );
+                  }
                   return GestureDetector(
                     child: FadeInRight(child: child),
                     onTap: () => context.push('/movie/${movie.id}'),

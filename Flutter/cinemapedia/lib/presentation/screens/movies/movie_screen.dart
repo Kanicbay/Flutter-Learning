@@ -13,10 +13,10 @@ class MovieScreen extends ConsumerStatefulWidget {
   const MovieScreen({super.key, required this.movieId});
 
   @override
-  _MovieScreenState createState() => _MovieScreenState();
+  MovieScreenState createState() => MovieScreenState();
 }
 
-class _MovieScreenState extends ConsumerState<MovieScreen> {
+class MovieScreenState extends ConsumerState<MovieScreen> {
   @override
   void initState() {
     super.initState();
@@ -215,19 +215,19 @@ class _CustomSliderAppBar extends StatelessWidget {
                 },
               ),
             ),
-            _CustomGradient(
+            const _CustomGradient(
               begin: AlignmentGeometry.topCenter,
               end: AlignmentGeometry.bottomCenter,
               stops: [0.7, 1.0],
               colors: [Colors.transparent, Colors.black87],
             ),
-            _CustomGradient(
+            const _CustomGradient(
               begin: AlignmentGeometry.topLeft,
               stops: [0.0, 0.3],
               colors: [Colors.black87, Colors.transparent],
             ),
             // Sombra favoritos
-            _CustomGradient(
+            const _CustomGradient(
               begin: AlignmentGeometry.topRight,
               end: AlignmentGeometry.bottomLeft,
               stops: [0.0, 0.4],
@@ -245,7 +245,7 @@ class _CustomGradient extends StatelessWidget {
   final List<Color>? colors;
   final List<double>? stops;
 
-  _CustomGradient({
+  const _CustomGradient({
     this.begin = Alignment.centerLeft,
     this.end = Alignment.centerRight,
     this.colors = const [Colors.black87, Colors.transparent],
