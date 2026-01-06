@@ -6,7 +6,8 @@ import 'package:drift/drift.dart' as drift;
 class DriftDatasource extends LocalStorageDatasource {
   final AppDatabase database;
 
-  DriftDatasource(this.database);
+  DriftDatasource([AppDatabase? databaseToUse])
+    : database = databaseToUse ?? db;
 
   @override
   Future<bool> isFavoriteMovie(int movieId) async {
@@ -31,24 +32,26 @@ class DriftDatasource extends LocalStorageDatasource {
 
     final favoritesMovieRows = await query.get();
 
-    final movies = favoritesMovieRows.map(
-      (row) => Movie(
-        adult: false,
-        backdropPath: row.backdropPath,
-        genreIds: const [],
-        id: row.movieId,
-        originalLanguage: '',
-        originalTitle: row.originalTitle,
-        overview: '',
-        popularity: 0,
-        posterPath: row.posterPath,
-        releaseDate: DateTime.now(),
-        title: row.title,
-        video: false,
-        voteAverage: row.voteAverage,
-        voteCount: 0,
-      ),
-    ).toList();
+    final movies = favoritesMovieRows
+        .map(
+          (row) => Movie(
+            adult: false,
+            backdropPath: row.backdropPath,
+            genreIds: const [],
+            id: row.movieId,
+            originalLanguage: '',
+            originalTitle: row.originalTitle,
+            overview: '',
+            popularity: 0,
+            posterPath: row.posterPath,
+            releaseDate: DateTime.now(),
+            title: row.title,
+            video: false,
+            voteAverage: row.voteAverage,
+            voteCount: 0,
+          ),
+        )
+        .toList();
 
     return movies;
   }

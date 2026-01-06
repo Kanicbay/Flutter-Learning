@@ -18,7 +18,6 @@ class StorageMoviesNotifier extends Notifier<Map<int, Movie>> {
 
   Future<void> toggleFavoriteMovie(Movie movie) async {
     final isFavorite = await localStorageRepository.isFavoriteMovie(movie.id);
-    print('isFavorite: $isFavorite');
     await localStorageRepository.toggleFavoriteMovie(movie);
 
     if (isFavorite) {
