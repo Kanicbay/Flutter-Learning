@@ -28,7 +28,6 @@ class HomeViewState extends ConsumerState<HomeView> {
 
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final popularMovies = ref.watch(popularMoviesProvider);
     final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final upcomingMovies = ref.watch(upcomingMoviesProvider);
 
@@ -58,13 +57,6 @@ class HomeViewState extends ConsumerState<HomeView> {
                   subTitle: 'En este mes',
                   loadNextPage: () =>
                       ref.read(upcomingMoviesProvider.notifier).loadNextPage(),
-                ),
-                MoviesHorizontalListview(
-                  movies: popularMovies,
-                  title: 'Populares',
-                  // subTitle: 'Lunes 20',
-                  loadNextPage: () =>
-                      ref.read(popularMoviesProvider.notifier).loadNextPage(),
                 ),
                 MoviesHorizontalListview(
                   movies: topRatedMovies,

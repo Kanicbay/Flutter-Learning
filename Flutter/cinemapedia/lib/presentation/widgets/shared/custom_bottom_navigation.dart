@@ -9,7 +9,7 @@ class CustomBottomNavigation extends StatelessWidget {
     switch (location) {
       case '/':
         return 0;
-      case '/categories':
+      case '/popular':
         return 1;
       case '/favorites':
         return 2;
@@ -24,7 +24,7 @@ class CustomBottomNavigation extends StatelessWidget {
         context.go('/');
         break;
       case 1:
-        context.go('/');
+        context.go('/popular');
         break;
       case 2:
         context.go('/favorites');
@@ -42,8 +42,8 @@ class CustomBottomNavigation extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
         BottomNavigationBarItem(
-          icon: Icon(Icons.label_outline),
-          label: 'Categorías',
+          icon: Icon(Icons.thumbs_up_down_outlined),
+          label: 'Populares',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_outline),

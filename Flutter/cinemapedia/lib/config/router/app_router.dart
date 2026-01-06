@@ -1,6 +1,5 @@
 import 'package:cinemapedia/presentation/screens/screen.dart';
-import 'package:cinemapedia/presentation/views/home_views/favorites_view.dart';
-import 'package:cinemapedia/presentation/views/home_views/home_view.dart';
+import 'package:cinemapedia/presentation/views/views.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,6 +21,10 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/favorites',
               builder: (context, state) => const FavoritesView(),
+            ),
+             GoRoute(
+              path: '/popular',
+              builder: (context, state) => const PopularView(),
             ),
           ],
         ),
