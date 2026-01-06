@@ -22,8 +22,35 @@ class DriftDatasource extends LocalStorageDatasource {
   }
 
   @override
-  Future<List<Movie>> loadFavoriteMovies({int limit = 10, int offset = 0}) {
-    throw UnimplementedError();
+  Future<List<Movie>> loadFavoriteMovies({
+    int limit = 10,
+    int offset = 0,
+  }) async {
+    final query = database.select(database.favoriteMovies)
+      ..limit(limit, offset: offset);
+
+    final favoritesMovieRows = await query.get();
+
+    final movies = favoritesMovieRows.map(
+      (row) => Movie(
+        adult: false,
+        backdropPath: row.backdropPath,
+        genreIds: const [],
+        id: row.movieId,
+        originalLanguage: '',
+        originalTitle: row.originalTitle,
+        overview: '',
+        popularity: 0,
+        posterPath: row.posterPath,
+        releaseDate: DateTime.now(),
+        title: row.title,
+        video: false,
+        voteAverage: row.voteAverage,
+        voteCount: 0,
+      ),
+    ).toList();
+
+    return movies;
   }
 
   @override
