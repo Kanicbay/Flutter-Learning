@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
+import 'package:cinemapedia/presentation/providers/storage/favorite_movies_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -175,13 +176,13 @@ class _ActorsByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliderAppBar extends StatelessWidget {
+class _CustomSliderAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliderAppBar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
 
     return SliverAppBar(
@@ -190,7 +191,11 @@ class _CustomSliderAppBar extends StatelessWidget {
       foregroundColor: Colors.white,
       actions: [
         IconButton(
-          onPressed: () {},
+          onPressed: () async {
+            ref
+                .read(favoriteMoviesProvider.notifier)
+                .toggleFavoriteMovie(movie);
+          },
           // icon: const Icon(Icons.favorite_border_outlined)
           icon: const Icon(Icons.favorite, color: Colors.red),
         ),
