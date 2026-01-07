@@ -1,9 +1,11 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.dart';
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/providers/storage/favorite_movies_provider.dart';
 import 'package:cinemapedia/presentation/providers/storage/is_favorite_movie_provider.dart';
+import 'package:cinemapedia/presentation/widgets/movies/movie_rating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -66,55 +68,106 @@ class _MovieDetails extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(movie.posterPath, width: size.width * 0.3),
-              ),
+        _TitleAndOverview(movie: movie, size: size, textStyles: textStyles),
 
-              const SizedBox(width: 10),
+        // Padding(
+        //   padding: const EdgeInsets.all(8),
+        //   child: Row(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     children: [
+        //       ClipRRect(
+        //         borderRadius: BorderRadius.circular(20),
+        //         child: Image.network(movie.posterPath, width: size.width * 0.3),
+        //       ),
 
-              SizedBox(
-                width: (size.width - 40) * 0.7,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+        //       const SizedBox(width: 10),
+
+        //       SizedBox(
+        //         width: (size.width - 40) * 0.7,
+        //         child: Column(
+        //           crossAxisAlignment: CrossAxisAlignment.start,
+        //           children: [
+        //             Text(movie.title, style: textStyles.titleLarge),
+        //             Text(movie.overview),
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+
+        // Padding(
+        //   padding: const EdgeInsets.all(8),
+        //   child: Wrap(
+        //     children: [
+        //       ...movie.genreIds.map(
+        //         (gender) => Container(
+        //           margin: const EdgeInsets.only(right: 10),
+        //           child: Chip(
+        //             label: Text(gender),
+        //             shape: RoundedRectangleBorder(
+        //               borderRadius: BorderRadius.circular(20),
+        //             ),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        _ActorsByMovie(movieId: movie.id.toString()),
+      ],
+    );
+  }
+}
+
+class _TitleAndOverview extends StatelessWidget {
+  final Movie movie;
+  final Size size;
+  final TextTheme textStyles;
+
+  const _TitleAndOverview({
+    required this.movie,
+    required this.size,
+    required this.textStyles,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    // ignore: prefer_const_constructors
+    return Padding(
+      padding: const EdgeInsetsGeometry.symmetric(horizontal: 8, vertical: 15),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(movie.posterPath, width: size.width * 0.3),
+          ),
+          const SizedBox(width: 10),
+          SizedBox(
+            width: (size.width - 40) * 0.7,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(movie.title, style: textStyles.titleLarge),
+                Text(movie.overview),
+                const SizedBox(height: 10),
+                MovieRating(voteAverage: movie.voteAverage),
+                Row(
                   children: [
-                    Text(movie.title, style: textStyles.titleLarge),
-                    Text(movie.overview),
+                    const Text(
+                      'Estreno: ',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(width: 5),
+                    Text(HumanFormats.shortDate(movie.releaseDate!)),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-
-        Padding(
-          padding: const EdgeInsets.all(8),
-          child: Wrap(
-            children: [
-              ...movie.genreIds.map(
-                (gender) => Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  child: Chip(
-                    label: Text(gender),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        _ActorsByMovie(movieId: movie.id.toString()),
-
-        const SizedBox(height: 50),
-      ],
+        ],
+      ),
     );
   }
 }
