@@ -22,7 +22,11 @@ final appRouter = GoRouter(
               path: '/favorites',
               builder: (context, state) => const FavoritesView(),
             ),
-             GoRoute(
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
               path: '/popular',
               builder: (context, state) => const PopularView(),
             ),
