@@ -172,6 +172,7 @@ class _CustomSliderAppBar extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     final isFavoriteFuture = ref.watch(isFavoriteMovieProvider(movie.id));
+    final scaffoldBackgroundColor = Theme.of(context).scaffoldBackgroundColor;
 
     return SliverAppBar(
       backgroundColor: Colors.black,
@@ -189,20 +190,19 @@ class _CustomSliderAppBar extends ConsumerWidget {
             data: (isFavorite) => isFavorite
                 ? const Icon(Icons.favorite, color: Colors.red)
                 : const Icon(Icons.favorite_border_outlined),
-            error: (error, stackTrace) =>
-                throw Exception('Error al cargar el estado de favoritos'),
+            error: (_, _) => throw UnimplementedError(),
             loading: () => const CircularProgressIndicator(strokeWidth: 2),
           ),
         ),
       ],
       flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
-        titlePadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        // title: Text(
-        //   movie.title,
-        //   style: const TextStyle(fontSize: 20, color: Colors.white),
-        //   textAlign: TextAlign.start,
-        // ),
+        titlePadding: const EdgeInsets.only(bottom: 0),
+        title: _CustomGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: const [0.7, 1.0],
+          colors: [Colors.transparent, scaffoldBackgroundColor],
+        ),
         background: Stack(
           children: [
             SizedBox.expand(
@@ -215,22 +215,19 @@ class _CustomSliderAppBar extends ConsumerWidget {
                 },
               ),
             ),
+            //* Favorite Gradient Background
             const _CustomGradient(
-              begin: AlignmentGeometry.topCenter,
-              end: AlignmentGeometry.bottomCenter,
-              stops: [0.7, 1.0],
-              colors: [Colors.transparent, Colors.black87],
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.0, 0.2],
+              colors: [Colors.black54, Colors.transparent],
             ),
+
+            //* Back arrow background
             const _CustomGradient(
-              begin: AlignmentGeometry.topLeft,
+              begin: Alignment.topLeft,
               stops: [0.0, 0.3],
               colors: [Colors.black87, Colors.transparent],
-            ),
-            // Sombra favoritos
-            const _CustomGradient(
-              begin: AlignmentGeometry.topRight,
-              end: AlignmentGeometry.bottomLeft,
-              stops: [0.0, 0.4],
             ),
           ],
         ),
