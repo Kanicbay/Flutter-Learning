@@ -35,21 +35,29 @@ class CustomBottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      elevation: 0,
-      currentIndex: getCurrentIndex(context),
-      onTap: (index) => onItemTapped(context, index),
-      items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.thumbs_up_down_outlined),
-          label: 'Populares',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite_outline),
-          label: 'Favoritos',
-        ),
-      ],
+    final colors = Theme.of(context).colorScheme;
+    return Theme(
+      data: Theme.of(context).copyWith(
+        splashColor: Colors.transparent,
+        splashFactory: InkRipple.splashFactory,
+      ),
+      child: BottomNavigationBar(
+        elevation: 0,
+        currentIndex: getCurrentIndex(context),
+        onTap: (index) => onItemTapped(context, index),
+        selectedItemColor: colors.primary,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home_max), label: 'Inicio'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.thumbs_up_down_outlined),
+            label: 'Populares',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite_outline),
+            label: 'Favoritos',
+          ),
+        ],
+      ),
     );
   }
 }
