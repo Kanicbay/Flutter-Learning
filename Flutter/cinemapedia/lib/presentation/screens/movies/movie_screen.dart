@@ -70,52 +70,43 @@ class _MovieDetails extends StatelessWidget {
       children: [
         _TitleAndOverview(movie: movie, size: size, textStyles: textStyles),
 
-        // Padding(
-        //   padding: const EdgeInsets.all(8),
-        //   child: Row(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     children: [
-        //       ClipRRect(
-        //         borderRadius: BorderRadius.circular(20),
-        //         child: Image.network(movie.posterPath, width: size.width * 0.3),
-        //       ),
+        _Genres(movie: movie),
 
-        //       const SizedBox(width: 10),
-
-        //       SizedBox(
-        //         width: (size.width - 40) * 0.7,
-        //         child: Column(
-        //           crossAxisAlignment: CrossAxisAlignment.start,
-        //           children: [
-        //             Text(movie.title, style: textStyles.titleLarge),
-        //             Text(movie.overview),
-        //           ],
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
-
-        // Padding(
-        //   padding: const EdgeInsets.all(8),
-        //   child: Wrap(
-        //     children: [
-        //       ...movie.genreIds.map(
-        //         (gender) => Container(
-        //           margin: const EdgeInsets.only(right: 10),
-        //           child: Chip(
-        //             label: Text(gender),
-        //             shape: RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.circular(20),
-        //             ),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         _ActorsByMovie(movieId: movie.id.toString()),
       ],
+    );
+  }
+}
+
+class _Genres extends StatelessWidget {
+  final Movie movie;
+
+  const _Genres({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsetsGeometry.all(8),
+      child: SizedBox(
+        width: double.infinity,
+        child: Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            ...movie.genreIds.map(
+              (gender) => Container(
+                margin: const EdgeInsets.only(right: 10),
+                child: Chip(
+                  label: Text(gender),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(20),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
