@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
-import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:cinemapedia/presentation/widgets/widgets.dart';
 
 class MoviesHorizontalListview extends StatefulWidget {
   final List<Movie> movies;
@@ -69,6 +69,52 @@ class _MoviesHorizontalListviewState extends State<MoviesHorizontalListview> {
   }
 }
 
+class _Slide extends StatelessWidget {
+  final Movie movie;
+
+  const _Slide({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final textStyle = Theme.of(context).textTheme;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 150,
+            child: ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(20),
+              child: GestureDetector(
+                onTap: () => context.push('/movie/${movie.id}'),
+                child: FadeInImage(
+                  height: 220,
+                  fit: BoxFit.cover,
+                  placeholder: const AssetImage(
+                    'assets/loaders/bottle-loader.gif',
+                  ),
+                  image: NetworkImage(movie.posterPath),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 5),
+
+          SizedBox(
+            width: 150,
+            child: Text(movie.title, maxLines: 2, style: textStyle.titleSmall),
+          ),
+
+          MovieRating(voteAverage: movie.voteAverage),
+        ],
+      ),
+    );
+  }
+}
+
 class _Title extends StatelessWidget {
   final String? title;
   final String? subTitle;
@@ -92,77 +138,6 @@ class _Title extends StatelessWidget {
               onPressed: () {},
               child: Text(subTitle!),
             ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Slide extends StatelessWidget {
-  final Movie movie;
-
-  const _Slide({required this.movie});
-
-  @override
-  Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme;
-
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 150,
-            child: ClipRRect(
-              borderRadius: BorderRadiusGeometry.circular(20),
-              child: Image.network(
-                movie.posterPath,
-                fit: BoxFit.cover,
-                width: 150,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) {
-                    return const Center(
-                      child: CircularProgressIndicator(strokeWidth: 2),
-                    );
-                  }
-                  return GestureDetector(
-                    child: FadeInRight(child: child),
-                    onTap: () => context.push('/movie/${movie.id}'),
-                  );
-                },
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 5),
-
-          SizedBox(
-            width: 150,
-            child: Text(movie.title, maxLines: 2, style: textStyle.titleSmall),
-          ),
-
-          SizedBox(
-            width: 150,
-            child: Row(
-              children: [
-                Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
-                const SizedBox(width: 3),
-                Text(
-                  '${movie.voteAverage}',
-                  style: textStyle.bodyMedium?.copyWith(
-                    color: Colors.yellow.shade800,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                const Spacer(),
-                Text(
-                  HumanFormats.number(movie.popularity),
-                  style: textStyle.bodySmall,
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
