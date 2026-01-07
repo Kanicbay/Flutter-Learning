@@ -5,6 +5,7 @@ import 'package:cinemapedia/presentation/providers/movies/movie_info_provider.da
 import 'package:cinemapedia/presentation/providers/providers.dart';
 import 'package:cinemapedia/presentation/providers/storage/favorite_movies_provider.dart';
 import 'package:cinemapedia/presentation/providers/storage/is_favorite_movie_provider.dart';
+import 'package:cinemapedia/presentation/widgets/movies/similar_movies.dart';
 import 'package:cinemapedia/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -73,6 +74,8 @@ class _MovieDetails extends StatelessWidget {
         _Genres(movie: movie),
 
         ActorsByMovie(movieId: movie.id.toString()),
+
+        SimilarMovies(movieId: movie.id),
       ],
     );
   }
