@@ -90,5 +90,19 @@ Con configuración:
       <td><img src="https://github.com/user-attachments/assets/9f4f1024-8a36-4fd6-a598-6a3f254bfe95"" width="220"/></td>
 </div> 
 
+### Aplicación de peliculas
+
+<div align="center" style="border:none">
+    <td><img src="https://github.com/user-attachments/assets/12d41219-3328-4f28-90e3-f1e8d997eb63" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/8ba7023f-ed8f-42a1-9e9c-9a2801448d13" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/d0b927d6-33fa-4c34-89a5-7b4319a815d1" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/cd3ae1c4-aeb8-4422-ac30-2d36687388fc" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/18fa1100-b2d7-41cb-9eee-8cb6505672c4" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/fe4a65d2-d76e-4bbe-9b0e-f897a0698bd4" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/40e0bfc9-4a25-4ae1-8825-db755b988ecf" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/240858bf-6892-4487-b0ec-3cc89184a766" width="220"/></td> 
+    <td><img src="https://github.com/user-attachments/assets/cf23b6ac-fc19-4812-ba31-4f95ae390b79" width="220"/></td>     
+</div> 
+
 
 
