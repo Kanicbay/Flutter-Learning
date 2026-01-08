@@ -75,6 +75,8 @@ class _MovieDetails extends StatelessWidget {
 
         ActorsByMovie(movieId: movie.id.toString()),
 
+        VideoFromMovie(movieId: movie.id),
+
         SimilarMovies(movieId: movie.id),
       ],
     );
