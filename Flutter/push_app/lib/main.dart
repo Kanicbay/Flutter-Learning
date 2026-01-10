@@ -5,8 +5,15 @@ import 'package:push_app/config/router/app_router.dart';
 import 'package:push_app/config/theme/app_theme.dart';
 import 'package:push_app/presentation/blocs/notifications/notifications_bloc.dart';
 
-void main() {
-  runApp(MultiBlocProvider(providers: [BlocProvider(create: (_) => NotificationsBloc())], child: MainApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationsBloc.initializerFirebaseNotifications();
+  runApp(
+    MultiBlocProvider(
+      providers: [BlocProvider(create: (_) => NotificationsBloc())],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
