@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:push_app/config/router/app_router.dart';
 import 'package:push_app/config/theme/app_theme.dart';
 
 void main() {
@@ -10,9 +11,9 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
+      routerConfig: appRouter,
       theme: AppTheme().getTheme(),
     );
   }
