@@ -27,6 +27,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   ) {
     emit(state.copyWith(status: event.status));
     _getFCMToken();
+    _onForeGroundMessage();
   }
 
   void _initialStatusCheck() async {
@@ -38,6 +39,18 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     if (state.status != AuthorizationStatus.authorized) return;
     final token = await messaging.getToken();
     print('Token: $token');
+  }
+
+  void _handleRemoteMessage(RemoteMessage message) async {
+    print('Got a message whilst in the foreground!');
+    print('Message data: ${message.data}');
+
+    if (message.notification == null) return null;
+    print('Message also contained a notification: ${message.notification}');
+  }
+
+  void _onForeGroundMessage() async {
+    FirebaseMessaging.onMessage.listen(_handleRemoteMessage);
   }
 
   void requestPermission() async {
