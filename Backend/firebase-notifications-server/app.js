@@ -16,29 +16,24 @@ admin.initializeApp({
 });
 
 function getAccessToken() {
-    return new Promise(function(resolve, reject) {
-      const key = require('./firebase-admin.json');
-      const jwtClient = new google.auth.JWT(
-        key.client_email,
-        null,
-        key.private_key,
-        SCOPES,
-        null
-      );
-      jwtClient.authorize(function(err, tokens) {
-        if (err) {
-          reject(err);
-          return;
-        }
-        resolve(tokens.access_token);
-      });
+  return new Promise((resolve, reject) => {
+    const jwtClient = new google.auth.JWT({
+      email: serviceAccount.client_email,
+      key: serviceAccount.private_key,
+      scopes: SCOPES,
     });
+
+    jwtClient.authorize((err, tokens) => {
+      if (err) return reject(err);
+      resolve(tokens.access_token);
+    });
+  });
 }
 
-app.get('/', async(req, res) => {
-    const token = await getAccessToken()
+app.get('/', async (req, res) => {
+  const token = await getAccessToken()
 
-    res.json(token);
+  res.json(token);
 });
 
 
