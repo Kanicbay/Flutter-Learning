@@ -2,6 +2,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:teslo_app/features/auth/presentation/providers/providers.dart';
 import 'package:teslo_app/features/shared/shared.dart';
 
 class LoginFormState {
@@ -48,8 +49,13 @@ class LoginFormState {
 
 // ! 2 - Implementar notifier
 class LoginFormNotifier extends Notifier<LoginFormState> {
+  late Function(String, String) loginUserCallBack;
+
   @override
-  LoginFormState build() => LoginFormState();
+  LoginFormState build() {
+    loginUserCallBack = ref.watch(authProvider.notifier).loginUser;
+    return LoginFormState();
+  }
 
   void onEmailChange(String value) {
     final newEmail = Email.dirty(value);
@@ -67,10 +73,10 @@ class LoginFormNotifier extends Notifier<LoginFormState> {
     );
   }
 
-  void onSubmit() {
+  Future<void> onSubmit() async {
     _touchEveryField();
     if (!state.isValid) return;
-    print(state);
+    await loginUserCallBack(state.email.value, state.password.value);
   }
 
   void _touchEveryField() {
