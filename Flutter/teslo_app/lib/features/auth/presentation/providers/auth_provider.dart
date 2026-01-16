@@ -38,7 +38,10 @@ class AuthNotifier extends Notifier<AuthState> {
   });
 
   @override
-  AuthState build() => AuthState();
+  AuthState build() {
+    checkAuthStatus();
+    return AuthState();
+  }
 
   Future<void> loginUser(String email, String password) async {
     try {
@@ -52,7 +55,16 @@ class AuthNotifier extends Notifier<AuthState> {
   }
 
   Future<void> registerUser(String email, String password) async {}
-  Future<void> checkAuthStatus() async {}
+  Future<void> checkAuthStatus() async {
+    final token = await keyValueStorageService.getValue<String>('token');
+    if (token == null) return await logout();
+    try {
+      final user = await authRepository.checkAuthStatus(token);
+      _setLoggedUser(user);
+    } catch (e) {
+      logout();
+    }
+  }
 
   void _setLoggedUser(User user) async {
     await keyValueStorageService.setKeyValue('token', user.token);
@@ -63,7 +75,7 @@ class AuthNotifier extends Notifier<AuthState> {
     );
   }
 
-  Future<void> logout(String? errorMessage) async {
+  Future<void> logout([String? errorMessage]) async {
     await keyValueStorageService.removeKey('token');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,

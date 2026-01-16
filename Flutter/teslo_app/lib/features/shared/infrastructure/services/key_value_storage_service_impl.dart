@@ -24,7 +24,7 @@ class KeyValueStorageServiceImpl extends KeyValueStorageService {
   }
 
   @override
-  Future<T?> getValue<T>(String key, T value) async {
+  Future<T?> getValue<T>(String key) async {
     final prefs = await getSharedPrefs();
     switch (T) {
       case const (int):
