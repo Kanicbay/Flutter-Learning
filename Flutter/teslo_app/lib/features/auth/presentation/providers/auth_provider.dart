@@ -49,7 +49,8 @@ class AuthNotifier extends Notifier<AuthState> {
   Future<void> checkAuthStatus() async {}
 
   void _setLoggedUser(User user) {
-    state = state.copyWith(user: user, authStatus: AuthStatus.authenticated);
+
+    state = state.copyWith(user: user, authStatus: AuthStatus.authenticated, errorMessage: '');
   }
 
   Future<void> logout(String? errorMessage) async {
