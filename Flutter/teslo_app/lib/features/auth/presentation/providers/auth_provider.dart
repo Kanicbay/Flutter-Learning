@@ -34,13 +34,31 @@ class AuthNotifier extends Notifier<AuthState> {
   @override
   AuthState build() => AuthState();
 
-  void loginUser(String email, String password) async {
-    final user = await authRepository.login(email, password);
+  Future<void> loginUser(String email, String password) async {
+    try {
+      final user = await authRepository.login(email, password);
+      _setLoggedUser(user);
+    } on WrongCredentials {
+      logout('Crendenciales Incorrectas');
+    } catch (e) {
+      logout('Hubo un error al autenticar');
+    }
+  }
+
+  Future<void> registerUser(String email, String password) async {}
+  Future<void> checkAuthStatus() async {}
+
+  void _setLoggedUser(User user) {
     state = state.copyWith(user: user, authStatus: AuthStatus.authenticated);
   }
 
-  void registerUser(String email, String password) async {}
-  void checkAuthStatus() async {}
+  Future<void> logout(String? errorMessage) async {
+    state = state.copyWith(
+      authStatus: AuthStatus.notAuthenticated,
+      errorMessage: errorMessage,
+      user: null,
+    );
+  }
 }
 
 final authProvider = NotifierProvider<AuthNotifier, AuthState>(() {
