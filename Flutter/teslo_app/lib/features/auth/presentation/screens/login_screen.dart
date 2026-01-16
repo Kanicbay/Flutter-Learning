@@ -76,7 +76,9 @@ class _LoginForm extends ConsumerWidget {
                 ? loginForm.email.errorMessage
                 : null,
           ),
-          const SizedBox(height: 30),
+          SizedBox(
+            height: loginForm.isFormPosted && !loginForm.isValid ? 15 : 30,
+          ),
 
           CustomTextFormField(
             label: 'Contraseña',
