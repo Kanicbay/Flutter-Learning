@@ -28,11 +28,11 @@ class AuthDatasourceImpl extends AuthDatasource {
         );
       }
       if (e.type == DioExceptionType.connectionTimeout) {
-        throw ConnectionTimeout();
+        CustomError(message: 'Revisar conexión a internet');
       }
-      throw CustomError(message: 'Something wrong happened');
+      throw Exception();
     } catch (e) {
-      throw CustomError(message: 'Something wrong happened');
+      throw Exception();
     }
   }
 
