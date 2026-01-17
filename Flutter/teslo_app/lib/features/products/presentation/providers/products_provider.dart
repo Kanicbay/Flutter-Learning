@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_app/features/products/domain/domain.dart';
 
 class ProductState {
@@ -28,4 +29,39 @@ class ProductState {
     isLoading: isLoading ?? this.isLoading,
     products: products ?? this.products,
   );
+}
+
+class ProductsNotifier extends Notifier<ProductState> {
+  final ProductsRepository productsRepository;
+
+  ProductsNotifier({required this.productsRepository});
+
+  @override
+  ProductState build() {
+    loadNextPage();
+    return ProductState();
+  }
+
+  Future loadNextPage() async {
+    if (state.isLoading || state.isLastPage) return;
+
+    state = state.copyWith(isLoading: true);
+
+    final products = await productsRepository.getProductsByPage(
+      limit: state.limit,
+      offset: state.offset,
+    );
+
+    if (products.isEmpty) {
+      state = state.copyWith(isLoading: false, isLastPage: true);
+      return;
+    }
+
+    state = state.copyWith(
+      isLastPage: false,
+      isLoading: false,
+      offset: state.offset + 10,
+      products: [...state.products, ...products],
+    );
+  }
 }
