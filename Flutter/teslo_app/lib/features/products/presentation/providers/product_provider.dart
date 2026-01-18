@@ -33,15 +33,22 @@ class ProductNotifier extends Notifier<ProductState> {
       ref.watch(productsRepositoryProvider);
 
   final String id;
+  bool _loaded = false;
+
   ProductNotifier(this.id);
 
   @override
   ProductState build() {
+    if (!_loaded) {
+      _loaded = true;
+      Future.microtask(loadProduct);
+    }
     return ProductState(id: id);
   }
 
   Future<void> loadProduct() async {
     final product = await productsRepository.getProductById(state.id);
+    if (!ref.mounted) return;
     state = state.copyWith(isLoading: false, product: product);
   }
 }
