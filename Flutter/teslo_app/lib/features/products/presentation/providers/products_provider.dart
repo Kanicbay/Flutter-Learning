@@ -2,14 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_app/features/products/domain/domain.dart';
 import 'package:teslo_app/features/products/presentation/providers/providers.dart';
 
-class ProductState {
+class ProductsState {
   final bool isLastPage;
   final int limit;
   final int offset;
   final bool isLoading;
   final List<Product> products;
 
-  ProductState({
+  ProductsState({
     this.isLastPage = false,
     this.limit = 10,
     this.offset = 0,
@@ -17,13 +17,13 @@ class ProductState {
     this.products = const [],
   });
 
-  ProductState copyWith({
+  ProductsState copyWith({
     bool? isLastPage,
     int? limit,
     int? offset,
     bool? isLoading,
     List<Product>? products,
-  }) => ProductState(
+  }) => ProductsState(
     isLastPage: isLastPage ?? this.isLastPage,
     limit: limit ?? this.limit,
     offset: offset ?? this.offset,
@@ -32,19 +32,17 @@ class ProductState {
   );
 }
 
-class ProductsNotifier extends Notifier<ProductState> {
-  late ProductsRepository productsRepository;
-  ProductsNotifier();
+class ProductsNotifier extends Notifier<ProductsState> {
+  ProductsRepository get productsRepository =>
+      ref.watch(productsRepositoryProvider);
 
   @override
-  ProductState build() {
-    productsRepository = ref.watch(productsRepositoryProvider);
-    loadNextPage();
-    return ProductState();
-  }
+  ProductsState build() => ProductsState();
 
-  Future loadNextPage() async {
+  Future<void> loadNextPage() async {
     if (state.isLoading || state.isLastPage) return;
+
+    await Future.delayed(Duration.zero);
 
     state = state.copyWith(isLoading: true);
 
@@ -67,6 +65,6 @@ class ProductsNotifier extends Notifier<ProductState> {
   }
 }
 
-final productsProvider = NotifierProvider<ProductsNotifier, ProductState>(
-  ProductsNotifier.new,
-);
+final productsProvider = NotifierProvider<ProductsNotifier, ProductsState>(() {
+  return ProductsNotifier();
+});
