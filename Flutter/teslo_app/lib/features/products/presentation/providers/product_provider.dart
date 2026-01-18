@@ -36,12 +36,15 @@ class ProductNotifier extends Notifier<ProductState> {
   ProductNotifier(this.id);
 
   @override
-  ProductState build() => ProductState(id: id);
+  ProductState build() {
+    return ProductState(id: id);
+  }
 
   Future<void> loadProduct() async {
-    
+    final product = await productsRepository.getProductById(state.id);
+    state = state.copyWith(isLoading: false, product: product);
   }
 }
 
 final productProvider = NotifierProvider.autoDispose
-    .family<ProductNotifier, ProductState, String>((id) => ProductNotifier(id));
+    .family<ProductNotifier, ProductState, String>(ProductNotifier.new);
