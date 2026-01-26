@@ -87,8 +87,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
         Title.dirty(value),
         Slug.dirty(state.slug.value),
         Price.dirty(state.price.value),
-        Stock.dirty(state.inStock.value)
-      ])
+        Stock.dirty(state.inStock.value),
+      ]),
     );
   }
 
@@ -99,8 +99,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
         Title.dirty(state.title.value),
         Slug.dirty(value),
         Price.dirty(state.price.value),
-        Stock.dirty(state.inStock.value)
-      ])
+        Stock.dirty(state.inStock.value),
+      ]),
     );
   }
 
@@ -111,8 +111,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
         Title.dirty(state.title.value),
         Slug.dirty(state.slug.value),
         Price.dirty(value),
-        Stock.dirty(state.inStock.value)
-      ])
+        Stock.dirty(state.inStock.value),
+      ]),
     );
   }
 
@@ -123,8 +123,24 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
         Title.dirty(state.title.value),
         Slug.dirty(state.slug.value),
         Price.dirty(state.price.value),
-        Stock.dirty(value)
-      ])
+        Stock.dirty(value),
+      ]),
     );
+  }
+
+  void onSizeChanged(List<String> sizes) {
+    state = state.copyWith(size: sizes);
+  }
+
+  void onGenderChanged(String gender) {
+    state = state.copyWith(gender: gender);
+  }
+
+  void onDescriptionChanged(String description) {
+    state = state.copyWith(description: description);
+  }
+
+  void onTagsChanged(String tags) {
+    state = state.copyWith(tags: tags);
   }
 }
