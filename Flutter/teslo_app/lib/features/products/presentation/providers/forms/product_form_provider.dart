@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
+import 'package:teslo_app/config/config.dart';
 import 'package:teslo_app/features/products/domain/domain.dart';
 import 'package:teslo_app/features/shared/shared.dart';
 
@@ -142,5 +143,40 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
 
   void onTagsChanged(String tags) {
     state = state.copyWith(tags: tags);
+  }
+
+  void _touchedEverything() {
+    state = state.copyWith(
+      isFormValid: Formz.validate([
+        Title.dirty(state.title.value),
+        Slug.dirty(state.slug.value),
+        Price.dirty(state.price.value),
+        Stock.dirty(state.inStock.value),
+      ]),
+    );
+  }
+
+  Future<bool> onFormSubmit() async {
+    _touchedEverything();
+    if (state.isFormValid) return false;
+    if (onSubmitCallback == null) return false;
+    final productLike = {
+      'id': state.id,
+      'title': state.title.value,
+      'price': state.price.value,
+      'description': state.description,
+      'slug': state.slug.value,
+      'stock': state.inStock.value,
+      'sizes': state.sizes,
+      'gender': state.gender,
+      'tags': state.tags.split(','),
+      'images': state.images
+          .map(
+            (image) =>
+                image.replaceAll('${Environment.apiUrl}/files/product', ''),
+          )
+          .toList(),
+    };
+    return true;
   }
 }
