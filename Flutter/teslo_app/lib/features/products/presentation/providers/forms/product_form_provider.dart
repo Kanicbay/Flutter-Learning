@@ -62,7 +62,7 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
   final void Function(Map<String, dynamic> productLike)? onSubmitCallback;
   final Product product;
 
-  ProductFormNotifier({required this.onSubmitCallback, required this.product});
+  ProductFormNotifier({this.onSubmitCallback, required this.product});
 
   @override
   ProductFormState build() {
@@ -180,3 +180,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
     return true;
   }
 }
+
+final productFormProvider = NotifierProvider.autoDispose
+    .family<ProductFormNotifier, ProductFormState, Product>(
+      (arg) => ProductFormNotifier(product: arg),
+    );
