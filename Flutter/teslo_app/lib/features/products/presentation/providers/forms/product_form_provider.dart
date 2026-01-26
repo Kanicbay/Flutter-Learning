@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 import 'package:teslo_app/config/config.dart';
 import 'package:teslo_app/features/products/domain/domain.dart';
+import 'package:teslo_app/features/products/presentation/providers/providers.dart';
 import 'package:teslo_app/features/shared/shared.dart';
 
 class ProductFormState {
@@ -59,10 +60,12 @@ class ProductFormState {
 }
 
 class ProductFormNotifier extends Notifier<ProductFormState> {
-  final void Function(Map<String, dynamic> productLike)? onSubmitCallback;
+  Future<Product> Function(Map<String, dynamic> productLike)?
+  get onSubmitCallback =>
+      ref.watch(productsRepositoryProvider).createUpdateProduct;
   final Product product;
 
-  ProductFormNotifier({this.onSubmitCallback, required this.product});
+  ProductFormNotifier({required this.product});
 
   @override
   ProductFormState build() {
@@ -159,7 +162,7 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
   Future<bool> onFormSubmit() async {
     _touchedEverything();
     if (!state.isFormValid) return false;
-    // if (onSubmitCallback == null) return false;
+    if (onSubmitCallback == null) return false;
     final productLike = {
       'id': state.id,
       'title': state.title.value,
@@ -177,7 +180,12 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
           )
           .toList(),
     };
-    return true;
+    try {
+      await onSubmitCallback!(productLike);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 
