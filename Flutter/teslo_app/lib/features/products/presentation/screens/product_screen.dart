@@ -102,7 +102,7 @@ class _ProductInformation extends ConsumerWidget {
             initialValue: productForm.price.toString(),
             onChanged: (value) => ref
                 .read(productFormProvider(product).notifier)
-                .onPriceChanged(double.tryParse(value) ?? 0),
+                .onPriceChanged(double.tryParse(value) ?? -1),
             errorMessage: productForm.price.errorMessage,
           ),
 
@@ -121,7 +121,7 @@ class _ProductInformation extends ConsumerWidget {
             initialValue: productForm.inStock.value.toString(),
             onChanged: (value) => ref
                 .read(productFormProvider(product).notifier)
-                .onStockChanged(int.tryParse(value) ?? 0),
+                .onStockChanged(int.tryParse(value) ?? -1),
             errorMessage: productForm.inStock.errorMessage,
           ),
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomProductField extends StatelessWidget {
-  final bool isTopField; 
-  final bool isBottomField; 
+  final bool isTopField;
+  final bool isBottomField;
   final String? label;
   final String? hint;
   final String? errorMessage;
@@ -42,6 +42,7 @@ class CustomProductField extends StatelessWidget {
     const borderRadius = Radius.circular(15);
 
     return Container(
+      padding: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
