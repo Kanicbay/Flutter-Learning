@@ -158,8 +158,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
 
   Future<bool> onFormSubmit() async {
     _touchedEverything();
-    if (state.isFormValid) return false;
-    if (onSubmitCallback == null) return false;
+    if (!state.isFormValid) return false;
+    // if (onSubmitCallback == null) return false;
     final productLike = {
       'id': state.id,
       'title': state.title.value,
