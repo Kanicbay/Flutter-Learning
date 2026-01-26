@@ -42,5 +42,14 @@ class ProductFormState {
   }) => ProductFormState(
     isFormValid: isFormValid ?? this.isFormValid,
     id: id ?? this.id,
+    title: title ?? this.title,
+    slug: slug ?? this.slug,
+    price: price ?? this.price,
+    size: size ?? this.size,
+    gender: gender ?? this.gender,
+    inStock: inStock ?? this.inStock,
+    description: description ?? this.description,
+    tags: tags ?? this.tags,
+    images: images ?? this.images,
   );
 }
