@@ -63,6 +63,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
   Future<Product> Function(Map<String, dynamic> productLike)?
   get onSubmitCallback =>
       ref.watch(productsRepositoryProvider).createUpdateProduct;
+  Future<bool> Function(Product product) get updateProductScreenCallBack =>
+      ref.watch(productsProvider.notifier).createOrUpdateProduct;
   final Product product;
 
   ProductFormNotifier({required this.product});
@@ -181,7 +183,8 @@ class ProductFormNotifier extends Notifier<ProductFormState> {
           .toList(),
     };
     try {
-      await onSubmitCallback!(productLike);
+      final product = await onSubmitCallback!(productLike);
+      await updateProductScreenCallBack(product);
       return true;
     } catch (e) {
       return false;

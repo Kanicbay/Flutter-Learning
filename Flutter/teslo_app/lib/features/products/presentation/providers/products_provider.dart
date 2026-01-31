@@ -39,6 +39,28 @@ class ProductsNotifier extends Notifier<ProductsState> {
   @override
   ProductsState build() => ProductsState();
 
+  Future<bool> createOrUpdateProduct(Product product) async {
+    try {
+      final isProductInList = state.products.any(
+        (element) => element.id == product.id,
+      );
+
+      if (!isProductInList) {
+        state = state.copyWith(products: [...state.products, product]);
+        return true;
+      }
+
+      state = state.copyWith(
+        products: state.products
+            .map((element) => (element.id == product.id) ? product : element)
+            .toList(),
+      );
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<void> loadNextPage() async {
     if (state.isLoading || state.isLastPage) return;
 
