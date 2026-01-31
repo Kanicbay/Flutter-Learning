@@ -8,6 +8,13 @@ class ProductScreen extends ConsumerWidget {
   final String productId;
   const ProductScreen({super.key, required this.productId});
 
+  void showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(const SnackBar(content: Text('Producto Actualizado')));
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productState = ref.watch(productProvider(productId));
@@ -26,12 +33,17 @@ class ProductScreen extends ConsumerWidget {
           ? const FullScreenLoader()
           : _ProductView(product: productState.product!),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
+        onPressed: () async {
           if (productState.product == null) return;
 
-          ref
+          await ref
               .read(productFormProvider(productState.product!).notifier)
-              .onFormSubmit();
+              .onFormSubmit()
+              .then((value) {
+                if (!value) return;
+                if (!context.mounted) return;
+                showSnackBar(context);
+              });
         },
         child: const Icon(Icons.save_as_outlined),
       ),
